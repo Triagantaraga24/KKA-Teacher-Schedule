@@ -1284,6 +1284,24 @@ const reverse = new Map([
   ...phraseEntries.map(([a,b])=>[b.toLocaleLowerCase(),a]),
   ...englishSourceEntries.map(([english,indonesian])=>[english.toLocaleLowerCase(),indonesian])
 ]);
+function compileWordPatterns(entries){
+  return entries
+    .filter(([from]) => from && from.length >= 2)
+    .map(([from,to]) => ({
+      pattern: new RegExp(`(^|[^\\p{L}\\p{N}_])(${escapeRegExp(from)})(?=$|[^\\p{L}\\p{N}_])`,'giu'),
+      to
+    }));
+}
+const DIRECTIONAL_PATTERNS = {
+  en: compileWordPatterns([
+    ...phraseEntries,
+    ...englishSourceEntries.map(([english,indonesian])=>[indonesian,english])
+  ].filter(([from]) => from && from.length >= 5 && /\s/.test(from))),
+  id: compileWordPatterns([
+    ...phraseEntries.map(([source,target])=>[target,source]),
+    ...englishSourceEntries
+  ].filter(([from]) => from && from.length >= 5 && /\s/.test(from)))
+};
 const SAFE_WORDS_ID_TO_EN = {
   'Senin':'Monday','Selasa':'Tuesday','Rabu':'Wednesday','Kamis':'Thursday','Jumat':'Friday','Sabtu':'Saturday','Minggu':'Sunday',
   'Upacara':'School ceremony','Pramuka':'Scouts','Literasi':'Literacy','Pembelajaran':'Lesson','Ujian':'Exam',
@@ -1294,13 +1312,17 @@ const SAFE_WORDS_ID_TO_EN = {
   'Muat':'Load','Muat ulang':'Reload','Muat ulang halaman':'Reload page','Diizinkan':'Granted','Ditolak':'Denied','Belum diminta':'Not requested','Tidak didukung':'Unsupported','Diaktifkan':'Enabled','Dinonaktifkan':'Disabled','Terpakai':'Used','Dipilih':'Selected','Tersimpan':'Saved','Diperbarui':'Updated','Dihapus':'Deleted'
 };
 const SAFE_WORDS_EN_TO_ID = new Map(Object.entries(SAFE_WORDS_ID_TO_EN).map(([id,en])=>[en.toLocaleLowerCase(),id]));
+const SAFE_WORD_PATTERNS = {
+  en: compileWordPatterns(Object.entries(SAFE_WORDS_ID_TO_EN)),
+  id: compileWordPatterns([...SAFE_WORDS_EN_TO_ID.entries()].map(([en,id])=>[en,id]))
+};
 function translateSafeWords(value,language){
-  const entries=language==='en'?Object.entries(SAFE_WORDS_ID_TO_EN):[...SAFE_WORDS_EN_TO_ID.entries()].map(([en,id])=>[en,id]);
   let output=value;
-  for(const [from,to] of entries){
-    const escaped=escapeRegExp(from);
-    const pattern=new RegExp(`(^|[^\\p{L}\\p{N}_])(${escaped})(?=$|[^\\p{L}\\p{N}_])`,'giu');
-    output=output.replace(pattern,(_m,prefix,found)=>prefix+matchCase(to,found));
+  for(const entry of SAFE_WORD_PATTERNS[language==='en'?'en':'id']){
+    entry.pattern.lastIndex=0;
+    if(!entry.pattern.test(output)) continue;
+    entry.pattern.lastIndex=0;
+    output=output.replace(entry.pattern,(_m,prefix,found)=>prefix+matchCase(entry.to,found));
   }
   return output;
 }
@@ -1346,14 +1368,11 @@ export function translateString(value, language=getLanguage()){
   if(exact!==undefined) return input.replace(trimmed,matchCase(exact,trimmed));
   let output=translateDynamicMessage(input,language);
   // Translate complete phrases first, then a curated list of standalone UI terms.
-  const directionalEntries=language==='en'
-    ? [...phraseEntries, ...englishSourceEntries.map(([english,indonesian])=>[indonesian,english])]
-    : [...phraseEntries.map(([source,target])=>[target,source]), ...englishSourceEntries];
-  for(const [from,to] of directionalEntries){
-    if(!from || from.length<5 || !/\s/.test(from)) continue;
-    const escaped=escapeRegExp(from);
-    const pattern=new RegExp(`(^|[^\\p{L}\\p{N}_])(${escaped})(?=$|[^\\p{L}\\p{N}_])`,'giu');
-    output=output.replace(pattern,(_match,prefix,found)=>prefix+matchCase(to,found));
+  for(const entry of DIRECTIONAL_PATTERNS[language==='en'?'en':'id']){
+    entry.pattern.lastIndex=0;
+    if(!entry.pattern.test(output)) continue;
+    entry.pattern.lastIndex=0;
+    output=output.replace(entry.pattern,(_match,prefix,found)=>prefix+matchCase(entry.to,found));
   }
   // Translate common variable-rich messages as whole sentences.
   output=translateDynamicMessage(output,language);
@@ -1431,17 +1450,68 @@ export function setLanguage(lang){
   document.dispatchEvent(new CustomEvent('languagechange',{detail:{language:next}}));
 }
 export function initTranslationObserver(){
-  if(observer||!document.body) return;
-  observer=new MutationObserver(records=>{
-    const lang=getLanguage();
+  if(observer || !document.body) return;
+
+  // Observe only regions that receive dynamic UI. A body-wide observer causes
+  // repeated tree walks for unrelated DOM changes in the application shell.
+  const regions = [
+    document.getElementById('viewRoot'),
+    document.getElementById('modalRoot'),
+    document.getElementById('toastRegion')
+  ].filter(Boolean);
+  const pendingRoots = new Set();
+  const pendingText = new Set();
+  const pendingElements = new Set();
+  let scheduled = false;
+
+  const flush = () => {
+    scheduled = false;
+    const language = getLanguage();
+    const roots = [...pendingRoots];
+    pendingRoots.clear();
+    const topLevelRoots = roots.filter(node => !roots.some(other =>
+      other !== node && other.nodeType === Node.ELEMENT_NODE && other.contains?.(node)
+    ));
+    topLevelRoots.forEach(node => translateSubtree(node, language));
+    pendingText.forEach(node => {
+      if(node.isConnected) translateTextNode(node, language);
+    });
+    pendingText.clear();
+    pendingElements.forEach(node => {
+      if(node.isConnected) translateElementAttributes(node, language);
+    });
+    pendingElements.clear();
+  };
+
+  const scheduleFlush = () => {
+    if(scheduled) return;
+    scheduled = true;
+    if('requestAnimationFrame' in window) requestAnimationFrame(flush);
+    else setTimeout(flush, 16);
+  };
+
+  observer = new MutationObserver(records => {
     for(const record of records){
-      if(record.type==='attributes'&&record.target instanceof Element){translateElementAttributes(record.target,lang);continue;}
-      if(record.type==='characterData'&&record.target instanceof Text){translateTextNode(record.target,lang);continue;}
-      record.addedNodes?.forEach(node=>{
-        if(node.nodeType===Node.ELEMENT_NODE||node.nodeType===Node.TEXT_NODE) translateSubtree(node,lang);
-      });
+      if(record.type === 'attributes'){
+        if(record.target instanceof Element) pendingElements.add(record.target);
+      } else if(record.type === 'characterData'){
+        if(record.target instanceof Text) pendingText.add(record.target);
+      } else {
+        record.addedNodes?.forEach(node => {
+          if(node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE) pendingRoots.add(node);
+        });
+      }
     }
+    if(pendingRoots.size || pendingText.size || pendingElements.size) scheduleFlush();
   });
-  observer.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label','aria-description','aria-valuetext','alt','data-tooltip','value']});
-  applyTranslations(document);
+
+  for(const region of regions){
+    observer.observe(region, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ['placeholder','title','aria-label','aria-description','aria-valuetext','alt','data-tooltip','value']
+    });
+  }
 }

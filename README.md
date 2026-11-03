@@ -319,3 +319,14 @@ First launch follows `prefers-color-scheme` (system light/dark). The theme butto
 
 ## v1.6.0 — UI comfort scale
 The v1.6.0 update improves readability and touch comfort across desktop, tablet, and mobile. It increases typography, spacing, navigation, cards, dashboard statistics, buttons, form controls, tables, calendar cells, modal dialogs, and notifications. The responsive layout remains fluid, and the final `css/ui-scale.css` layer works with both light and dark themes.
+
+## Performance architecture (v1.7.0)
+- Dashboard is rendered while local IndexedDB data is fetched in parallel.
+- Schedule, weekly, calendar, reminders, import, history, and settings modules use route-level dynamic imports.
+- SheetJS is downloaded only when the Excel import module actually reads a workbook.
+- CSS is requested through one ordered bundle (`css/app.css`); individual stylesheets remain in `css/` as maintainable source files.
+- Service Worker installation caches only the critical shell. Other same-origin feature modules are cached after first use.
+- Offline availability of a page requires that page's module to have been opened at least once while online.
+
+### Rebuilding the CSS bundle after editing styles
+The application loads `css/app.css` as a single stylesheet to reduce requests. The original modular CSS files remain the editable sources. After changing any file in `css/`, run `node scripts/build-css.mjs` from the project root before committing. Node.js is used only for this optional local build step; the deployed application has no Node.js runtime or backend.

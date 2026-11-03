@@ -224,3 +224,13 @@ git push -u origin main
 
 ## v1.6.0 — Pembesaran skala UI lintas perangkat
 Pembaruan ini memperbesar tipografi, jarak antarelemen, navigasi, kartu dashboard, statistik, tombol, kontrol formulir, tabel, kalender, modal, serta notifikasi agar lebih nyaman dibaca dan disentuh. Penyesuaian berlaku untuk desktop, tablet, dan ponsel. Layout tetap responsif dan lapisan `css/ui-scale.css` kompatibel dengan tema terang maupun gelap.
+
+## Optimasi performa v1.7.0
+- Dashboard dapat tampil saat IndexedDB sedang dibaca.
+- Modul halaman dimuat saat halaman dibuka, bukan semuanya saat awal.
+- SheetJS hanya dimuat ketika Import Excel digunakan.
+- CSS dimuat melalui satu file bundle `css/app.css`.
+- Service Worker hanya melakukan precache untuk application shell. Halaman fitur lain tersedia offline setelah pernah dibuka saat online.
+
+### Memperbarui stylesheet
+Website memuat satu bundle `css/app.css` agar permintaan awal lebih sedikit. File CSS modular tetap menjadi sumber edit. Setelah mengubah file dalam folder `css/`, jalankan `node scripts/build-css.mjs` dari folder proyek, lalu commit hasilnya. Node.js hanya diperlukan untuk langkah build lokal ini, bukan ketika website dijalankan.

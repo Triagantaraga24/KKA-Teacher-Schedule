@@ -47,7 +47,23 @@ export function parseWorksheet(matrix,sheetName,fileName,teacherConfig,mappingOv
   const validCandidates=candidates.filter(r=>r._errors.length===0);stats.matched=candidates.length;stats.valid=validCandidates.length;stats.total=records.length;return {sheetName,fileName,headerRow,headers,map,detected,recurringExplicit,records,candidates,validCandidates,stats,source};
 }
 let sheetJsPromise=null;
-async function ensureSheetJS(){if(window.XLSX)return window.XLSX;if(!sheetJsPromise){sheetJsPromise=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';script.async=true;script.onload=()=>window.XLSX?resolve(window.XLSX):reject(new Error('SheetJS gagal diinisialisasi.'));script.onerror=()=>reject(new Error('SheetJS tidak dapat dimuat. Periksa koneksi internet lalu coba lagi.'));document.head.append(script);});}return sheetJsPromise;}
+async function ensureSheetJS(){
+  if(window.XLSX) return window.XLSX;
+  if(!sheetJsPromise){
+    sheetJsPromise = new Promise((resolve,reject)=>{
+      const script = document.createElement('script');
+      script.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+      script.async = true;
+      script.onload = () => window.XLSX ? resolve(window.XLSX) : reject(new Error('SheetJS gagal diinisialisasi.'));
+      script.onerror = () => {
+        sheetJsPromise = null;
+        reject(new Error('SheetJS tidak dapat dimuat. Periksa koneksi internet lalu coba lagi.'));
+      };
+      document.head.append(script);
+    });
+  }
+  return sheetJsPromise;
+}
 export async function analyzeWorkbook(file,teacherConfig,mappingBySheet={}){const XLSX=await ensureSheetJS();const buffer=await file.arrayBuffer();const workbook=XLSX.read(buffer,{type:'array',cellDates:false});const results=[];for(const name of workbook.SheetNames){const matrix=XLSX.utils.sheet_to_json(workbook.Sheets[name],{header:1,raw:true,defval:''});results.push(parseWorksheet(matrix,name,file.name,teacherConfig,mappingBySheet[name]||{}));}return {fileName:file.name,fileSize:file.size,results,workbookSheets:workbook.SheetNames};}
 export function stripImportMeta(record){const {_match,_errors,_warnings,_keep,...clean}=record;return clean;}
 export function mappingOptions(headers,current={}){return Object.entries(aliases).map(([field,names])=>({field,label:field==='className'?'Kelas':field==='teacher'?'Nama Guru':field==='teacherId'?'ID Guru':field==='subject'?'Mata Pelajaran':field==='date'?'Tanggal':field==='weekday'?'Hari':field==='startTime'?'Mulai':field==='endTime'?'Selesai':field==='period'?'Jam ke':field==='scheduleText'?'Jadwal/Waktu':field==='eventType'?'Jenis Jadwal':'Ruang',value:current[field]??'',options:headers.map((h,i)=>({value:String(i),label:String(h||`Kolom ${i+1}`)}))}));}

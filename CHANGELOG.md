@@ -41,3 +41,14 @@ v1.4.0 — Theme consistency & complete bilingual UI
 - Increased mobile touch targets, body text, card padding, and bottom navigation height while preserving responsive layouts and avoiding horizontal page overflow.
 - Added `css/ui-scale.css` as the final design layer; theme colors continue to use the existing light/dark design tokens.
 - Updated application version and Service Worker cache to v1.6.0.
+
+## v1.7.0 — Performance optimization
+- Route-level JavaScript loading: feature modules are imported only when their pages are opened.
+- Removed the eager SheetJS CDN request from the HTML shell; the existing import parser now loads SheetJS on demand and resets its failed-load promise so retry is possible.
+- Consolidated CSS loading into one ordered `css/app.css` bundle while retaining the modular source stylesheets.
+- Render the initial route while IndexedDB loads in parallel; schedules and history are fetched concurrently.
+- Deferred reminder-engine initialization and Service Worker registration until after the first render.
+- Limited translation observation to the view, modal, and toast regions and coalesced mutation batches.
+- Reduced Service Worker install precache to the app shell; route modules are cached on first use.
+- Preserved existing features, appearance modes, translation, JP 1 verification, local data, and PWA behavior.
+- v1.7.0 follow-up: lazily import event-form code only after an edit/create action, and precompile bilingual phrase/safe-word patterns to reduce translation work per text node.

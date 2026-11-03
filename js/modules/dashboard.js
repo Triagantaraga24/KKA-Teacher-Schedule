@@ -1,6 +1,5 @@
 import { state } from '../core/state.js';
 import { pageHeader, eventMini, emptyState, bindEventActions } from '../components/views.js';
-import { openEventForm, deleteEventWithConfirm } from '../components/event-form.js';
 import { icon, escapeHTML } from '../utils/helpers.js';
 import { getEventInstances, jakartaToday, jakartaTime, dateToUTCms, countdown, formatDate, weekdayName, startOfWeek, dateFromParts, addDays, eventStatus } from '../utils/date-utils.js';
 import { storage } from '../database/storage.js';
@@ -34,6 +33,6 @@ export async function renderDashboard(root){currentRoot=root;if(clockTimer)clear
     </section>
   </div>`;
   const updateClock=()=>{if(!currentRoot?.isConnected)return;const t=jakartaTime();const c=root.querySelector('#welcomeClock');const sc=root.querySelector('#sideClock');if(c)c.textContent=t;if(sc)sc.textContent=`${t} WIB`;if(next){const status=eventStatus(next,next.instanceDate);const target=status==='in-progress'?dateToUTCms(next.instanceDate,next.endTime):dateToUTCms(next.instanceDate,next.startTime);const cd=root.querySelector('#nextCountdown');const label=root.querySelector('#countdownLabel');if(cd)cd.textContent=countdown(target-Date.now());if(label)label.textContent=status==='in-progress'?'SISA WAKTU':'DIMULAI DALAM';}};updateClock();clockTimer=setInterval(updateClock,1000);
-  root.querySelector('#dashboardAdd')?.addEventListener('click',()=>openEventForm(null,()=>window.dispatchEvent(new Event('datachanged'))));root.querySelector('#emptyAdd')?.addEventListener('click',()=>openEventForm(null,()=>window.dispatchEvent(new Event('datachanged'))));root.querySelector('#dashboardImport')?.addEventListener('click',()=>location.hash='import');root.querySelector('#editNextButton')?.addEventListener('click',()=>openEventForm(state.schedules.find(x=>x.id===next.id),()=>window.dispatchEvent(new Event('datachanged'))));
+  root.querySelector('#dashboardAdd')?.addEventListener('click',()=>import('../components/event-form.js').then(m=>m.openEventForm(null,()=>window.dispatchEvent(new Event('datachanged')))));root.querySelector('#emptyAdd')?.addEventListener('click',()=>import('../components/event-form.js').then(m=>m.openEventForm(null,()=>window.dispatchEvent(new Event('datachanged')))));root.querySelector('#dashboardImport')?.addEventListener('click',()=>location.hash='import');root.querySelector('#editNextButton')?.addEventListener('click',()=>import('../components/event-form.js').then(m=>m.openEventForm(state.schedules.find(x=>x.id===next.id),()=>window.dispatchEvent(new Event('datachanged')))));
 }
 export function cleanupDashboard(){if(clockTimer)clearInterval(clockTimer);clockTimer=null;currentRoot=null;}
