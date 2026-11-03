@@ -1,6 +1,6 @@
 /* KKA Teacher Schedule service worker — static/PWA only. */
 const CACHE_PREFIX = 'kka-teacher-schedule-';
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
 const APP_CACHE = CACHE_PREFIX + CACHE_VERSION;
 const CORE_ASSETS = [
   './', './index.html', './offline.html', './manifest.webmanifest',
