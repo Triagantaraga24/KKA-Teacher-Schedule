@@ -10,7 +10,7 @@ const ID_TO_EN = {
   'Jadwal Mingguan':'Weekly Timetable','Weekly Timetable':'Jadwal Mingguan',
   'Kalender':'Calendar','Calendar':'Kalender','Pengingat':'Reminders','Reminders':'Pengingat',
   'Impor Excel':'Import Excel','Import Excel':'Impor Excel','Riwayat Jadwal':'Schedule History','Schedule History':'Riwayat Jadwal',
-  'Pengaturan':'Settings','Settings':'Pengaturan','RUANG KERJA':'WORKSPACE','WORKSPACE':'RUANG KERJA',
+  'Pengaturan':'Settings','Settings':'Pengaturan','Beranda':'Home','Home':'Beranda','Jadwal':'Schedule','Schedule':'Jadwal','Lainnya':'More','More':'Lainnya','RUANG KERJA':'WORKSPACE','WORKSPACE':'RUANG KERJA',
   'KELOLA':'MANAGE','MANAGE':'KELOLA','Workspace':'Ruang kerja','Ruang kerja':'Workspace',
   'Your data stays local':'Data Anda tersimpan lokal','Data Anda tersimpan lokal':'Your data stays local',
   'Schedule data is stored on this device.':'Data jadwal disimpan di perangkat ini.',

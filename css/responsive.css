@@ -256,3 +256,61 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Mobile navigation is bottom-bar only: no drawer, sidebar or hamburger. */
+@media (max-width: 900px) {
+  .sidebar,
+  .sidebar-overlay,
+  .menu-toggle,
+  .sidebar-close,
+  .sidebar-collapse-toggle { display: none !important; }
+  .mobile-nav { display: flex !important; }
+  .mobile-nav a,
+  .mobile-nav button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    color: var(--muted);
+    border-radius: 9px;
+    padding: 3px 1px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mobile-nav a.active,
+  .mobile-nav button.active { color: var(--primary); background: var(--primary-soft); }
+  .mobile-nav a > span,
+  .mobile-nav button > span { display: grid; place-items: center; width: 26px; height: 25px; }
+  .mobile-nav svg { width: 21px; height: 21px; }
+  .mobile-nav small { font-size: 10px; line-height: 1.1; font-weight: 650; white-space: nowrap; }
+  .mobile-more-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 44;
+    background: rgba(15, 23, 42, .28);
+  }
+  .mobile-more-backdrop.show { display: block; }
+  .mobile-more-menu {
+    position: fixed;
+    z-index: 46;
+    right: 12px;
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    width: min(250px, calc(100vw - 24px));
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface, #fff);
+    box-shadow: 0 14px 40px rgba(15, 23, 42, .18);
+  }
+  .mobile-more-menu[hidden] { display: none !important; }
+  .mobile-more-menu a { display: flex; align-items: center; gap: 11px; min-height: 45px; padding: 0 11px; border-radius: 9px; color: var(--text); font-size: 13px; font-weight: 600; }
+  .mobile-more-menu a:active { background: var(--primary-soft); color: var(--primary); }
+  .mobile-more-menu svg { width: 18px; height: 18px; color: var(--muted); }
+}

@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.8.1 — Mobile navigation & icon reliability
+- Android/mobile layout now uses the bottom navigation bar exclusively; the desktop sidebar, drawer overlay, hamburger and collapse controls are hidden below 900px.
+- Added a compact “Lainnya / More” bottom-sheet menu so Weekly Timetable, Import Excel, Schedule History and Settings remain reachable without a sidebar.
+- Hydrate SVG icons across the persistent app shell, including sidebar, bottom bar, topbar and the More menu.
+- Avoid redundant route rendering when a user taps the already-active destination.
+- Bumped the Service Worker cache version to v1.8.1.
+
 ## v1.5.0 — UI theme and translation refinement
 
 - Hardened light/dark theme coverage for navigation, verification options, modal portals, settings/import panels, form controls, data tables, calendar/week views, alerts, badges, and toast notifications.

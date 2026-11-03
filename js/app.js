@@ -66,6 +66,8 @@ async function render() {
     document.querySelectorAll('[data-route]').forEach(link => {
       link.classList.toggle('active', link.dataset.route === state.route);
     });
+    const moreToggle = document.getElementById('mobileMoreToggle');
+    if (moreToggle) moreToggle.classList.toggle('active', ['weekly', 'import', 'history', 'settings'].includes(state.route));
 
     const loader = pageLoaders[state.route] || pageLoaders.dashboard;
     const page = await loader();
@@ -80,7 +82,10 @@ async function render() {
 
     hydrateIcons(root);
     applyTranslations(root);
+    // Keep every persistent navigation surface hydrated, including sidebar and mobile menus.
     hydrateIcons(document.querySelector('.topbar'));
+    hydrateIcons(document.getElementById('mobileNav'));
+    hydrateIcons(document.getElementById('mobileMoreMenu'));
   } catch (error) {
     console.error(error);
     root.innerHTML = `<section class="card card-pad"><h2>Terjadi kesalahan</h2><p class="page-subtitle">${String(error.message || error)}</p><button class="btn btn-primary" onclick="location.reload()">Muat ulang</button></section>`;
@@ -222,6 +227,25 @@ function setupShellControls() {
   document.querySelectorAll('.primary-nav a').forEach(link => link.addEventListener('click', closeMenu));
   window.addEventListener('hashchange', closeMenu);
 
+  // Android/mobile uses the bottom bar exclusively; secondary destinations live in More.
+  const moreToggle = document.getElementById('mobileMoreToggle');
+  const moreMenu = document.getElementById('mobileMoreMenu');
+  const moreBackdrop = document.getElementById('mobileMoreBackdrop');
+  const closeMoreMenu = () => {
+    moreMenu.hidden = true;
+    moreBackdrop.classList.remove('show');
+    moreToggle.setAttribute('aria-expanded', 'false');
+  };
+  moreToggle.addEventListener('click', () => {
+    const opening = moreMenu.hidden;
+    moreMenu.hidden = !opening;
+    moreBackdrop.classList.toggle('show', opening);
+    moreToggle.setAttribute('aria-expanded', String(opening));
+  });
+  moreBackdrop.addEventListener('click', closeMoreMenu);
+  moreMenu.querySelectorAll('a[data-route]').forEach(link => link.addEventListener('click', closeMoreMenu));
+  window.addEventListener('hashchange', closeMoreMenu);
+
   document.getElementById('quickAddButton').addEventListener('click', () => {
     import('./components/event-form.js').then(module => {
       module.openEventForm(null, () => window.dispatchEvent(new Event('datachanged')));
@@ -269,6 +293,8 @@ async function init() {
   if (teacher) teacher.textContent = state.teacher.name.split(',')[0];
 
   initTranslationObserver();
+  // Static shell icons must be hydrated once; page rendering only handles dynamic content.
+  hydrateIcons(document);
   applyTranslations(document);
   setupShellControls();
   initNavigation(render);

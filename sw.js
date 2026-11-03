@@ -1,6 +1,6 @@
 /* KKA Teacher Schedule — performance-first static PWA cache. */
 const CACHE_PREFIX = 'kka-teacher-schedule-';
-const CACHE_VERSION = 'v1.8.0';
+const CACHE_VERSION = 'v1.8.1';
 const APP_CACHE = CACHE_PREFIX + CACHE_VERSION;
 
 // Small critical shell. Feature modules are cached only when requested.

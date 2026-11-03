@@ -21,3 +21,11 @@ Vanilla JS PWA, local IndexedDB/LocalStorage, Excel import, KKA teacher filterin
 
 ## Measurement caveat
 No browser automation/Lighthouse runtime was available in this build environment. Therefore no measured FCP/LCP/TBT or device-specific speedup is claimed. The changes above remove identified unnecessary work, but actual timings must be measured after deployment on target devices and networks.
+
+
+## v1.8.1 — Navigation and icon fixes
+- Fixed static SVG icon hydration for all persistent navigation surfaces. Previously, the app hydrated page content and topbar icons but could leave sidebar and mobile navigation placeholders empty.
+- Android/mobile breakpoint (900px and below) now hides the sidebar and drawer controls and uses the bottom bar as the primary navigation.
+- Added a “More” menu above the bottom bar for secondary destinations, preserving access to weekly timetable, Excel import, history and settings.
+- Prevented same-route taps from dispatching an unnecessary route render.
+- Validation performed: JavaScript syntax checks, CSS rebuild, local import-path checks and ZIP integrity. No real-device browser/Lighthouse benchmark has been run, so no measured speedup is claimed.
