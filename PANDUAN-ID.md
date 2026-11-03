@@ -194,3 +194,13 @@ git push -u origin main
 - Service Worker menyediakan cache aplikasi, tetapi bukan server push dan bukan timer yang selalu berjalan di latar belakang.
 - Tidak ada sinkronisasi dua arah antara aplikasi dan kalender eksternal.
 - Setiap perangkat memiliki penyimpanan lokal sendiri. Pindahkan data dengan backup JSON atau ekspor kalender `.ics`.
+
+
+## Fitur v1.1.0
+
+- **Verifikasi JP 1:** Setiap Senin, Rabu, dan Jumat, konfirmasi salah satu kondisi: tidak ada kegiatan khusus, Upacara, GSS, Pramuka, atau Literasi. Verifikasi tersimpan per tanggal di perangkat.
+- **Catatan perubahan jadwal:** Verifikasi tidak otomatis menggeser/menghapus sesi. Jika sekolah menggunakan jadwal alternatif, cocokkan dengan jadwal alternatif resmi lalu edit jadwal secara manual.
+- **Dark/Light:** Saat pertama digunakan, tema mengikuti preferensi sistem/browser. Tombol tema di topbar beralih antara terang dan gelap.
+- **Bahasa:** Pilih ID atau EN dari kontrol bahasa di topbar.
+- **Collapse sidebar:** Tombol panel di topbar mengecilkan sidebar desktop; pilihan tersimpan di perangkat.
+- Riwayat verifikasi JP 1 ikut disertakan dalam backup JSON.

@@ -294,3 +294,16 @@ KKA-Teacher-Schedule/
 - The `.ics` export is a static snapshot, not a live subscribed calendar.
 - Excel import requires the SheetJS script. If it cannot be loaded, the app shows an error rather than pretending the workbook was imported.
 - Browser storage can be cleared by the user or browser. Keep periodic JSON backups.
+
+
+## v1.1.0 interface features
+- **Daily JP-1 verification:** on Mondays, Wednesdays, and Fridays, confirm Upacara, GSS, Pramuka, Literasi, or no special activity. The result is stored locally for that date. It does not automatically shift classes; only verified official alternative schedules or manual edits should change lesson times.
+- **Theme:** defaults to the device/browser color scheme. Use the sun/moon button to switch manually between light and dark.
+- **Language:** use the ID/EN selector in the top bar.
+- **Sidebar:** use the collapse button on desktop; the preference is stored locally.
+
+## Daily JP-1 verification details
+The banner appears on Monday, Wednesday, and Friday based on Asia/Jakarta date. Select one of: no special activity, Upacara, GSS, Pramuka, or Literasi. Records are stored per date in local browser storage and included in JSON backup. The verification does not automatically shift, cancel, or rewrite lesson events; confirm the official alternative timetable before making schedule edits.
+
+## Theme and language
+First launch follows `prefers-color-scheme` (system light/dark). The theme button switches between explicit light and dark modes. The ID/EN selector stores the language locally. Sidebar collapse is a desktop preference and is also stored locally.

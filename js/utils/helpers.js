@@ -40,6 +40,10 @@ const iconPaths = {
   'download-cloud':'<path d="M8 17l4 4 4-4m-4 4V9"/><path d="M20 16.5A5 5 0 0 0 18 7h-1.3A7 7 0 1 0 4 15.3"/>',
   'copy':'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>',
   'calendar-clock':'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 9h18M12 13v3l2 1"/>',
+  'languages':'<path d="m5 8 6 6m-7 0 6-6 2-3M2 5h12M9 3v2m4 13 4-9 4 9m-6-3h5"/>',
+  'panel-left-close':'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18m7-13-3 4 3 4"/>',
+  'clipboard-check':'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2m-4 9 2 2 4-4"/>',
+  'clipboard-list':'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 10h6m-6 4h6m-6 4h4"/>',
   'mail':'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
 };
 export function icon(name, cls='') { return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name] || iconPaths.info}</svg>`; }
