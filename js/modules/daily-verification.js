@@ -13,7 +13,7 @@ const OPTIONS = [
 ];
 const keyFor = date => `dailyVerification:${date}`;
 const getToday = () => jakartaToday();
-function localDateLabel(iso){return new Intl.DateTimeFormat('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Asia/Jakarta'}).format(new Date(`${iso}T12:00:00+07:00`));}
+function localDateLabel(iso){const locale=document.documentElement.lang==='en'?'en-US':'id-ID';return new Intl.DateTimeFormat(locale,{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Asia/Jakarta'}).format(new Date(`${iso}T12:00:00+07:00`));}
 export function renderDailyVerification(root){
   const date=getToday(),day=new Date(`${date}T12:00:00+07:00`).getDay();
   if(!DAYS[day]) return;

@@ -204,3 +204,20 @@ git push -u origin main
 - **Bahasa:** Pilih ID atau EN dari kontrol bahasa di topbar.
 - **Collapse sidebar:** Tombol panel di topbar mengecilkan sidebar desktop; pilihan tersimpan di perangkat.
 - Riwayat verifikasi JP 1 ikut disertakan dalam backup JSON.
+
+
+## Pembaruan v1.5.0
+
+- Tema gelap/terang sekarang menormalkan lebih banyak komponen, termasuk kartu statistik, kalender, tabel, modal, toast, form, dan panel import.
+- Tema sistem tetap menjadi default; pilihan manual terang/gelap tetap tersimpan pada perangkat.
+- Kamus terjemahan ID/EN diperluas untuk pesan dinamis, validasi import, backup, notifikasi, pengaturan, serta label kalender.
+- Label hari pada kalender dan ringkasan mingguan mengikuti bahasa antarmuka aktif.
+- Cache PWA diperbarui ke v1.5.0.
+
+
+### Pembaruan v1.5.0 — perbaikan lanjutan
+
+- Lapisan tema diperluas untuk komponen dinamis, termasuk dialog verifikasi JP 1, pilihan radio, panel settings/import, tabel, dropdown, input tanggal/waktu, badge, alert, dan toast.
+- Warna browser/status bar mengikuti tema yang aktif sejak halaman mulai dimuat.
+- Terjemahan ID/EN diperluas untuk label navigasi desktop/mobile, status koneksi, preferensi tampilan, validasi, dan pesan dinamis.
+- Teks nama guru, nama kelas, serta catatan pengguna tidak diterjemahkan otomatis.

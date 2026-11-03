@@ -1,0 +1,889 @@
+/* KKA Teacher Schedule — unified theme layer.
+   Loaded last so every page, modal and dynamically-created component shares the same tokens. */
+:root {
+  color-scheme: light;
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #eef2f7;
+  --surface-raised: #ffffff;
+  --text: #172033;
+  --text-2: #475569;
+  --muted: #8491a5;
+  --line: #e7ebf2;
+  --line-strong: #d8e0eb;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-soft: #eff6ff;
+  --success: #16845b;
+  --success-bg: #eaf8f1;
+  --warning: #a66b16;
+  --warning-bg: #fff7e6;
+  --danger: #d14343;
+  --danger-bg: #fff0ef;
+  --info: #2563eb;
+  --topbar-bg: rgba(255,255,255,.94);
+  --mobile-nav-bg: rgba(255,255,255,.98);
+  --overlay: rgba(19,29,48,.48);
+  --soft-blue: #edf4ff;
+  --soft-green: #eaf8f1;
+  --soft-amber: #fff6e4;
+  --soft-purple: #f3efff;
+  --soft-gray: #f1f3f7;
+  --shadow: 0 8px 28px rgba(31,45,75,.06);
+  --shadow-raised: 0 18px 52px rgba(31,45,75,.13);
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0c1422;
+  --surface: #151f2e;
+  --surface-2: #1b293b;
+  --surface-3: #26364b;
+  --surface-raised: #1a2637;
+  --text: #edf3fb;
+  --text-2: #c2cede;
+  --muted: #95a5ba;
+  --line: #2b3a50;
+  --line-strong: #40516a;
+  --primary: #8db5ff;
+  --primary-dark: #b2ccff;
+  --primary-soft: #203653;
+  --success: #70d8ac;
+  --success-bg: #17392f;
+  --warning: #f2c36f;
+  --warning-bg: #3c3222;
+  --danger: #ff9b9b;
+  --danger-bg: #422929;
+  --info: #9bc1ff;
+  --topbar-bg: rgba(21,31,46,.96);
+  --mobile-nav-bg: rgba(21,31,46,.98);
+  --overlay: rgba(1,7,16,.72);
+  --soft-blue: #203653;
+  --soft-green: #17392f;
+  --soft-amber: #3c3222;
+  --soft-purple: #302a49;
+  --soft-gray: #27364a;
+  --shadow: 0 8px 28px rgba(0,0,0,.18);
+  --shadow-raised: 0 22px 60px rgba(0,0,0,.42);
+}
+
+html { color-scheme: light; background: var(--bg); }
+html[data-theme="dark"] { color-scheme: dark; }
+html, body { min-height: 100%; background: var(--bg); color: var(--text); }
+body { background: var(--bg); color: var(--text); }
+body, button, input, select, textarea { accent-color: var(--primary); }
+input, select, textarea { color-scheme: inherit; }
+::selection { background: var(--primary-soft); color: var(--text); }
+
+/* App chrome */
+.sidebar, .topbar, .mobile-nav, .card, .next-class-card, .modal, .toast,
+.privacy-note, .connection-pill, .icon-button, .language-control, .btn-secondary,
+.form-control, .dropzone, .verification-option, .day-agenda-item, .validation-stat,
+.table-wrap, .schedule-card, .week-event, .calendar-cell {
+  color: var(--text);
+  border-color: var(--line);
+}
+.sidebar { background: var(--surface); border-right-color: var(--line); }
+.topbar { background: var(--topbar-bg); border-bottom-color: var(--line); backdrop-filter: blur(16px); }
+.mobile-nav { background: var(--mobile-nav-bg); border-top-color: var(--line); backdrop-filter: blur(16px); }
+.main-column, .main-content { background: var(--bg); color: var(--text); }
+.brand-copy strong, .profile-copy strong, .breadcrumb strong, .page-title,
+.page-heading h1, .section-title, .card h2, .card h3, .modal h2 { color: var(--text); }
+.brand-copy span, .profile-copy span, .nav-label, .app-footer, .breadcrumb-separator { color: var(--muted); }
+.primary-nav a { color: var(--text-2); }
+.primary-nav a:hover { background: var(--surface-2); color: var(--text); }
+.primary-nav a.active { color: var(--primary); background: var(--primary-soft); }
+.privacy-note { background: var(--surface-2); border-color: var(--line); color: var(--text-2); }
+.connection-pill { background: var(--surface-2); color: var(--text-2); border-color: var(--line); }
+.icon-button { background: var(--surface); color: var(--text-2); border-color: var(--line); }
+.icon-button:hover { background: var(--surface-2); color: var(--primary); border-color: var(--line-strong); }
+.language-control { background: var(--surface); color: var(--text-2); border-color: var(--line); }
+.language-control select, select, option { background-color: var(--surface); color: var(--text); }
+
+/* Shared cards, headings and secondary copy */
+#viewRoot .card, #viewRoot .next-class-card, #viewRoot .schedule-card,
+#viewRoot .week-column, #viewRoot .week-event, #viewRoot .calendar-cell,
+#viewRoot .day-agenda-item, #modalRoot .modal, #modalRoot .verification-option {
+  background-color: var(--surface);
+  color: var(--text);
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+#viewRoot .week-column, #viewRoot .week-day, #viewRoot .calendar-weekday,
+#viewRoot .calendar-cell.muted, #viewRoot .schedule-date-box,
+#viewRoot .time-line, #viewRoot .progress { background-color: var(--surface-2); }
+.page-subtitle, .card-header p, .section-description, .kpi-caption, .kpi-label,
+.small-text, .form-hint, .form-field label, .setting-row p, .list-item-main span,
+.next-class-meta, .schedule-card-info p, .schedule-card-side span,
+.day-agenda-time, .schedule-time, .week-event span { color: var(--text-2); }
+.muted, .text-muted, .eyebrow, .calendar-weekday { color: var(--muted); }
+.setting-row, .list-item, .schedule-row { border-bottom-color: var(--line); }
+.schedule-marker { background: var(--primary); }
+.time-line { background: var(--surface-3); }
+
+/* Inputs and form controls */
+.form-control, input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+  background-color: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--line-strong);
+}
+.form-control::placeholder, input::placeholder, textarea::placeholder { color: var(--muted); opacity: 1; }
+.form-control:focus, input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+select option { background: var(--surface); color: var(--text); }
+.switch { background: var(--line-strong); }
+.switch:checked { background: var(--primary); }
+.switch::after { background: #fff; }
+
+/* Buttons and status surfaces */
+.btn-secondary { background: var(--surface); color: var(--text-2); border-color: var(--line); }
+.btn-secondary:hover { background: var(--surface-2); color: var(--primary); border-color: var(--line-strong); }
+.btn-ghost { color: var(--text-2); }
+.btn-danger { background: var(--danger-bg); color: var(--danger); border-color: var(--line); }
+.badge-blue { background: var(--soft-blue); color: var(--primary); }
+.badge-green { background: var(--soft-green); color: var(--success); }
+.badge-amber { background: var(--soft-amber); color: var(--warning); }
+.badge-red { background: var(--danger-bg); color: var(--danger); }
+.badge-gray { background: var(--soft-gray); color: var(--text-2); }
+.alert-info { background: var(--soft-blue); border-color: var(--line-strong); color: var(--info); }
+.alert-warning { background: var(--warning-bg); border-color: color-mix(in srgb,var(--warning) 32%,var(--line)); color: var(--warning); }
+.alert-success { background: var(--success-bg); border-color: color-mix(in srgb,var(--success) 30%,var(--line)); color: var(--success); }
+.alert-danger { background: var(--danger-bg); border-color: color-mix(in srgb,var(--danger) 30%,var(--line)); color: var(--danger); }
+.empty-icon, .dropzone-icon { background: var(--primary-soft); color: var(--primary); }
+.dropzone { background: var(--surface-2); border-color: var(--line-strong); color: var(--text-2); }
+.dropzone.dragover { background: var(--primary-soft); border-color: var(--primary); }
+.progress { background: var(--surface-3); }
+.skeleton { background: linear-gradient(90deg,var(--surface-2),var(--surface-3),var(--surface-2)); }
+
+/* Dashboard and schedule views */
+.welcome-panel { color: #fff; background: linear-gradient(115deg,#1e4fba,#3474e8); }
+.welcome-panel .eyebrow, .welcome-panel p, .welcome-panel .welcome-date span { color: #e0ebff; }
+.next-class-card { background: var(--surface); }
+.week-day { background: var(--surface-2); color: var(--text-2); }
+.week-day.active { background: var(--primary-soft); color: var(--primary); }
+.week-event { background: var(--surface); border-color: var(--line); color: var(--text); }
+.week-event span { color: var(--muted); }
+.schedule-date-box { background: var(--surface-2); color: var(--text); }
+.kpi-blue .kpi-icon { background: var(--soft-blue); color: var(--primary); }
+.kpi-green .kpi-icon { background: var(--soft-green); color: var(--success); }
+.kpi-amber .kpi-icon { background: var(--soft-amber); color: var(--warning); }
+.kpi-purple .kpi-icon { background: var(--soft-purple); color: #8469d5; }
+
+/* Calendar */
+.calendar-toolbar { color: var(--text); }
+.calendar-weekday { background: var(--surface-2); color: var(--muted); }
+.calendar-cell { background: var(--surface); color: var(--text); }
+.calendar-cell:hover { background: var(--surface-2); }
+.calendar-cell.muted { background: var(--surface-2); color: var(--muted); }
+.calendar-cell.today, .calendar-cell.selected { background: var(--primary-soft); }
+.calendar-cell.today .calendar-date { background: var(--primary); color: #fff; }
+.calendar-event { background: var(--soft-blue); color: var(--primary); border-left-color: var(--primary); }
+.calendar-event.exam { background: var(--soft-amber); color: var(--warning); border-color: var(--warning); }
+.calendar-event.cancelled { background: var(--soft-gray); color: var(--muted); border-color: var(--line-strong); }
+.day-agenda-item { background: var(--surface); color: var(--text); }
+
+/* Dialogs, overlays, and notification surfaces */
+.modal-backdrop, .sidebar-overlay { background: var(--overlay); }
+.modal { background: var(--surface); color: var(--text); border-color: var(--line); box-shadow: var(--shadow-raised); }
+.modal-header, .modal-footer { border-color: var(--line); background: var(--surface); }
+.modal-header p { color: var(--text-2); }
+.toast { background: var(--surface); color: var(--text); border-color: var(--line); box-shadow: var(--shadow-raised); }
+.toast p { color: var(--text-2); }
+.daily-verification { background: var(--surface); border-color: var(--line); color: var(--text); }
+.daily-verification.is-pending { background: var(--warning-bg); border-color: color-mix(in srgb,var(--warning) 45%,var(--line)); }
+.verification-option { background: var(--surface); border-color: var(--line); color: var(--text); }
+.verification-option:has(input:checked) { background: var(--primary-soft); border-color: var(--primary); }
+.verification-option-copy small { color: var(--muted); }
+.validation-stat { background: var(--surface-2); color: var(--text); border-color: var(--line); }
+
+/* Table and import preview */
+.table-wrap { background: var(--surface); border-color: var(--line); }
+.data-table th { background: var(--surface-2); color: var(--muted); border-bottom-color: var(--line); }
+.data-table td { color: var(--text-2); border-bottom-color: var(--line); }
+.data-table td strong { color: var(--text); }
+.data-table tbody tr:hover { background: var(--surface-2); }
+.empty-state h3 { color: var(--text); }
+.empty-state p { color: var(--muted); }
+
+/* Legacy inline colors generated by older templates: normalize common neutral surfaces. */
+:root[data-theme="dark"] #viewRoot [style*="background:#fff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#ffffff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #ffffff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f8fafc"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f8fafc"],
+:root[data-theme="dark"] #viewRoot [style*="background:#fbfcff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fbfcff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f1f5fb"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f1f5fb"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f5f8ff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f5f8ff"] { background: var(--surface-2) !important; }
+:root[data-theme="dark"] #viewRoot [style*="color:#667389"],
+:root[data-theme="dark"] #viewRoot [style*="color: #667389"],
+:root[data-theme="dark"] #viewRoot [style*="color:#4d5b70"],
+:root[data-theme="dark"] #viewRoot [style*="color: #4d5b70"],
+:root[data-theme="dark"] #viewRoot [style*="color:#98a4b5"],
+:root[data-theme="dark"] #viewRoot [style*="color: #98a4b5"],
+:root[data-theme="dark"] #modalRoot [style*="color:#667389"],
+:root[data-theme="dark"] #modalRoot [style*="color: #667389"] { color: var(--text-2) !important; }
+
+/* Compact chrome and controls */
+:root[data-theme="dark"] .avatar, :root[data-theme="dark"] .topbar-avatar { background: #263b5c; color: #c7dcff; }
+:root[data-theme="dark"] .nav-count { background: var(--primary-soft); color: var(--primary); }
+:root[data-theme="dark"] .mobile-nav a { color: var(--muted); }
+:root[data-theme="dark"] .mobile-nav a.active { color: var(--primary); background: var(--primary-soft); }
+:root[data-theme="dark"] .btn-primary { background: #3769bb; color: #fff; box-shadow: none; }
+:root[data-theme="dark"] .btn-primary:hover { background: #477bd0; }
+:root[data-theme="dark"] .kpi-purple .kpi-icon { background: #302a49; color: #c9b8ff; }
+:root[data-theme="dark"] .welcome-panel { background: linear-gradient(115deg,#173a75,#2458a3); }
+:root[data-theme="dark"] .welcome-panel .eyebrow, :root[data-theme="dark"] .welcome-panel p,
+:root[data-theme="dark"] .welcome-panel .welcome-date span { color: #e0ebff; }
+:root[data-theme="dark"] .calendar-cell.muted { color: #8291a6; }
+:root[data-theme="dark"] .switch { background: #526176; }
+:root[data-theme="dark"] .switch:checked { background: var(--primary); }
+:root[data-theme="dark"] ::-webkit-calendar-picker-indicator { filter: invert(1); }
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #40516a; }
+:root[data-theme="light"] ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+:focus-visible { outline-color: color-mix(in srgb, var(--primary) 60%, transparent); }
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* Additional dark-theme compatibility for components introduced by page modules. */
+:root[data-theme="dark"] .empty-state,
+:root[data-theme="dark"] .card-header,
+:root[data-theme="dark"] .calendar-layout,
+:root[data-theme="dark"] .week-table,
+:root[data-theme="dark"] .schedule-list,
+:root[data-theme="dark"] .day-agenda,
+:root[data-theme="dark"] .content-stack { color: var(--text); }
+:root[data-theme="dark"] .calendar-month,
+:root[data-theme="dark"] .week-column-head,
+:root[data-theme="dark"] .week-column-head strong,
+:root[data-theme="dark"] .week-column-head span,
+:root[data-theme="dark"] .calendar-date,
+:root[data-theme="dark"] .schedule-info strong,
+:root[data-theme="dark"] .schedule-card-info strong,
+:root[data-theme="dark"] .list-item-main strong { color: var(--text); }
+:root[data-theme="dark"] .empty-state .empty-icon { background: var(--primary-soft); color: var(--primary); }
+:root[data-theme="dark"] .next-time-band { border-color: var(--line); background: var(--surface-2); }
+:root[data-theme="dark"] .time-block span,
+:root[data-theme="dark"] .countdown-note { color: var(--muted); }
+:root[data-theme="dark"] .day-agenda-row { border-color: var(--line); }
+:root[data-theme="dark"] .week-exception-button { background: var(--surface-2); color: var(--text-2); }
+:root[data-theme="dark"] .form-row .btn, :root[data-theme="dark"] .toolbar .btn { color: inherit; }
+:root[data-theme="dark"] .form-hint, :root[data-theme="dark"] .small-text { color: var(--muted); }
+
+/* v1.3.0 — complete component-level theme normalization.
+   Keep this block last: several legacy components still declare literal light colors. */
+:root {
+  --control-bg: var(--surface);
+  --control-border: var(--line-strong);
+  --table-row-hover: var(--surface-2);
+  --surface-overlay: var(--overlay);
+  --focus-ring: color-mix(in srgb, var(--primary) 22%, transparent);
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-track: transparent;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --control-bg: #fff;
+  --control-border: #d8e0eb;
+  --table-row-hover: #f6f8fc;
+  --scrollbar-thumb: #cbd5e1;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --surface: #151f2e;
+  --surface-2: #1c293b;
+  --surface-3: #26364b;
+  --surface-raised: #1a2637;
+  --text: #edf3fb;
+  --text-2: #c5d0df;
+  --muted: #91a2b8;
+  --line: #2c3b50;
+  --line-strong: #40536c;
+  --primary: #91b8ff;
+  --primary-dark: #b5d0ff;
+  --primary-soft: #203653;
+  --success: #77dfb5;
+  --success-bg: #173a30;
+  --warning: #f4c779;
+  --warning-bg: #3d3222;
+  --danger: #ffa0a0;
+  --danger-bg: #432929;
+  --info: #a6c8ff;
+  --topbar-bg: rgba(21,31,46,.96);
+  --mobile-nav-bg: rgba(21,31,46,.98);
+  --overlay: rgba(1,7,16,.76);
+  --soft-blue: #203653;
+  --soft-green: #173a30;
+  --soft-amber: #3d3222;
+  --soft-purple: #302a49;
+  --soft-gray: #27364a;
+  --control-bg: #111b2a;
+  --control-border: #40536c;
+  --table-row-hover: #202e42;
+  --focus-ring: rgba(145,184,255,.24);
+  --scrollbar-thumb: #43536a;
+  --shadow: 0 8px 28px rgba(0,0,0,.24);
+  --shadow-raised: 0 22px 60px rgba(0,0,0,.46);
+}
+
+html, body, .app-shell, .main-column, .main-content, #viewRoot {
+  background-color: var(--bg);
+  color: var(--text);
+}
+body, button, input, select, textarea { color: var(--text); }
+body, .main-content { transition: background-color .18s ease, color .18s ease; }
+#viewRoot { min-width: 0; }
+
+/* Every neutral surface must follow the active theme, including nested and legacy surfaces. */
+:is(.sidebar,.topbar,.mobile-nav,.card,.next-class-card,.schedule-card,.week-column,
+.week-event,.calendar-cell,.day-agenda-item,.table-wrap,.modal,.toast,.privacy-note,
+.connection-pill,.language-control,.dropzone,.daily-verification,.verification-option,
+.validation-stat,.setting-row,.list-item,.week-column-head,.schedule-date-box,
+.next-time-band,.time-block,.day-agenda-row,.week-exception-button,.search-box,
+.calendar-toolbar,.calendar-grid,.week-table,.week-summary,.schedule-list,.content-stack) {
+  border-color: var(--line);
+}
+:is(.card,.next-class-card,.schedule-card,.week-column,.week-event,.calendar-cell,
+.day-agenda-item,.table-wrap,.modal,.toast,.verification-option,.validation-stat) {
+  color: var(--text);
+}
+:is(.card,.next-class-card,.schedule-card,.week-column,.week-event,.calendar-cell,
+.day-agenda-item,.table-wrap,.modal,.toast,.verification-option,.validation-stat) {
+  background-color: var(--surface);
+}
+:is(.setting-row,.list-item,.schedule-row,.day-agenda-row,.next-time-band,.modal-header,.modal-footer) {
+  border-color: var(--line) !important;
+}
+:is(.week-column-head,.week-day,.calendar-weekday,.calendar-cell.muted,.schedule-date-box,
+.time-line,.progress,.validation-stat,.week-exception-button,.privacy-note,.connection-pill,
+.dropzone,.search-box,.calendar-toolbar,.next-time-band) {
+  background-color: var(--surface-2);
+  color: var(--text-2);
+}
+:is(.brand-copy strong,.profile-copy strong,.breadcrumb strong,.page-title,.page-heading h1,
+.section-title,.card h2,.card h3,.modal h2,.modal-header h2,.empty-state h3,
+.schedule-info strong,.schedule-card-info strong,.list-item-main strong,.week-column-head strong,
+.calendar-month,.calendar-date,.verification-option-copy strong,.setting-row strong) {
+  color: var(--text);
+}
+:is(.brand-copy span,.profile-copy span,.nav-label,.app-footer,.breadcrumb-separator,
+.page-subtitle,.card-header p,.section-description,.kpi-caption,.kpi-label,.small-text,
+.form-hint,.form-field label,.setting-row p,.list-item-main span,.next-class-meta,
+.schedule-card-info p,.schedule-card-side span,.day-agenda-time,.schedule-time,
+.week-event span,.empty-state p,.modal-header p,.toast p,.calendar-weekday,
+.time-block span,.countdown-note,.verification-option-copy small) {
+  color: var(--text-2);
+}
+
+/* Inputs, selects, native controls, and their disabled/placeholder states. */
+:is(input:not([type="checkbox"]):not([type="radio"]),select,textarea,.form-control) {
+  background: var(--control-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--control-border) !important;
+  color-scheme: inherit;
+}
+:is(input,select,textarea,button):disabled,
+:is(.btn,.icon-button):disabled { opacity: .58; cursor: not-allowed; }
+:is(input,textarea,.form-control)::placeholder { color: var(--muted) !important; opacity: 1; }
+:is(input,select,textarea,.form-control):focus-visible {
+  outline: none;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px var(--focus-ring) !important;
+}
+select option { background: var(--surface); color: var(--text); }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); }
+
+/* Buttons and compact interactive controls. */
+.btn-secondary, .btn-ghost, .icon-button, .language-control,
+.week-exception-button, .calendar-toolbar button {
+  background-color: var(--surface);
+  color: var(--text-2);
+  border-color: var(--line);
+}
+.btn-secondary:hover, .icon-button:hover, .week-exception-button:hover,
+.calendar-toolbar button:hover { background-color: var(--surface-2); color: var(--primary); border-color: var(--line-strong); }
+.btn-ghost:hover { background-color: var(--surface-2); color: var(--text); }
+.btn-primary { color: #fff; }
+.btn-danger { background: var(--danger-bg); color: var(--danger); border-color: var(--line); }
+.switch { background: var(--line-strong); }
+.switch:checked { background: var(--primary); }
+.switch::after { background: #fff; }
+
+/* Tables, lists, calendar and weekly timetable. */
+.data-table th { background: var(--surface-2) !important; color: var(--muted) !important; border-color: var(--line) !important; }
+.data-table td { background: transparent; color: var(--text-2) !important; border-color: var(--line) !important; }
+.data-table td strong { color: var(--text) !important; }
+.data-table tbody tr:hover { background: var(--table-row-hover) !important; }
+.calendar-cell { background: var(--surface) !important; color: var(--text) !important; border-color: var(--line) !important; }
+.calendar-cell:hover { background: var(--surface-2) !important; }
+.calendar-cell.muted { background: var(--surface-2) !important; color: var(--muted) !important; }
+.calendar-cell.today, .calendar-cell.selected { background: var(--primary-soft) !important; }
+.calendar-weekday, .week-day { background: var(--surface-2); color: var(--text-2); }
+.week-day.active { background: var(--primary-soft); color: var(--primary); }
+.week-event { background: var(--surface); color: var(--text); border-color: var(--line); }
+.schedule-row, .schedule-card, .day-agenda-item, .list-item { border-color: var(--line); }
+.schedule-date-box { background: var(--surface-2); color: var(--text); }
+.next-time-band { background: var(--surface-2); border-color: var(--line); }
+
+/* Status chips and feedback messages retain semantic contrast in both themes. */
+.badge-blue { background: var(--soft-blue); color: var(--primary); }
+.badge-green { background: var(--soft-green); color: var(--success); }
+.badge-amber { background: var(--soft-amber); color: var(--warning); }
+.badge-red { background: var(--danger-bg); color: var(--danger); }
+.badge-gray { background: var(--soft-gray); color: var(--text-2); }
+.alert-info { background: var(--soft-blue); border-color: var(--line-strong); color: var(--info); }
+.alert-warning { background: var(--warning-bg); border-color: color-mix(in srgb,var(--warning) 34%,var(--line)); color: var(--warning); }
+.alert-success { background: var(--success-bg); border-color: color-mix(in srgb,var(--success) 32%,var(--line)); color: var(--success); }
+.alert-danger { background: var(--danger-bg); border-color: color-mix(in srgb,var(--danger) 32%,var(--line)); color: var(--danger); }
+.daily-verification.is-pending { background: var(--warning-bg); border-color: color-mix(in srgb,var(--warning) 42%,var(--line)); }
+.verification-option:has(input:checked) { background: var(--primary-soft); border-color: var(--primary); }
+.empty-icon,.dropzone-icon { background: var(--primary-soft); color: var(--primary); }
+.dropzone { background: var(--surface-2); border-color: var(--line-strong); color: var(--text-2); }
+.dropzone.dragover { background: var(--primary-soft); border-color: var(--primary); }
+.progress { background: var(--surface-3); }
+.skeleton { background: linear-gradient(90deg,var(--surface-2),var(--surface-3),var(--surface-2)); }
+
+/* Inline legacy neutrals are normalized, while semantic color accents are preserved. */
+:root[data-theme="dark"] #viewRoot [style*="background:#fff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#ffffff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #ffffff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f8fafc"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f8fafc"],
+:root[data-theme="dark"] #viewRoot [style*="background:#fbfcff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fbfcff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f1f5fb"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f1f5fb"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f5f8ff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f5f8ff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f4f7fb"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f4f7fb"] {
+  background: var(--surface-2) !important;
+}
+:root[data-theme="dark"] #viewRoot [style*="color:#667389"],
+:root[data-theme="dark"] #viewRoot [style*="color: #667389"],
+:root[data-theme="dark"] #viewRoot [style*="color:#4d5b70"],
+:root[data-theme="dark"] #viewRoot [style*="color: #4d5b70"],
+:root[data-theme="dark"] #viewRoot [style*="color:#98a4b5"],
+:root[data-theme="dark"] #viewRoot [style*="color: #98a4b5"],
+:root[data-theme="dark"] #modalRoot [style*="color:#667389"],
+:root[data-theme="dark"] #modalRoot [style*="color: #667389"] {
+  color: var(--text-2) !important;
+}
+
+:root[data-theme="dark"] .avatar, :root[data-theme="dark"] .topbar-avatar { background: #263b5c; color: #c7dcff; }
+:root[data-theme="dark"] .nav-count { background: var(--primary-soft); color: var(--primary); }
+:root[data-theme="dark"] .mobile-nav a { color: var(--muted); }
+:root[data-theme="dark"] .mobile-nav a.active { color: var(--primary); background: var(--primary-soft); }
+:root[data-theme="dark"] .btn-primary { background: #3769bb; color: #fff; box-shadow: none; }
+:root[data-theme="dark"] .btn-primary:hover { background: #477bd0; }
+:root[data-theme="dark"] .kpi-purple .kpi-icon { background: #302a49; color: #c9b8ff; }
+:root[data-theme="dark"] .welcome-panel { background: linear-gradient(115deg,#173a75,#2458a3); }
+:root[data-theme="light"] .welcome-panel { background: linear-gradient(115deg,#1e4fba,#3474e8); }
+
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+
+/* v1.2.1 — final surface audit: keep every route and dynamic panel on theme tokens. */
+#viewRoot, #modalRoot { color: var(--text); }
+#viewRoot :is(.card,.card-pad,.settings-section,.settings-card,.filter-panel,.filter-card,
+  .schedule-list,.schedule-row,.schedule-item,.schedule-card,.event-card,.history-item,
+  .weekly-grid,.week-column,.week-table,.calendar-layout,.calendar-panel,.agenda-panel,
+  .import-panel,.import-step,.validation-panel,.backup-panel,.storage-panel) {
+  color: var(--text);
+  border-color: var(--line);
+}
+#viewRoot :is(.settings-section,.settings-card,.filter-panel,.filter-card,.schedule-list,
+  .schedule-row,.schedule-item,.history-item,.calendar-panel,.agenda-panel,.import-panel,
+  .import-step,.validation-panel,.backup-panel,.storage-panel) { background-color: var(--surface); }
+#viewRoot :is(.settings-section h2,.settings-card h2,.filter-panel h2,.schedule-card h3,
+  .history-item strong,.setting-row strong,.week-column h3,.calendar-month) { color: var(--text); }
+#viewRoot :is(.settings-section p,.settings-card p,.filter-panel p,.history-item p,
+  .setting-row p,.import-step p,.validation-panel p,.storage-panel p) { color: var(--text-2); }
+#viewRoot a:not(.btn):not(.primary-nav a) { color: var(--primary); }
+#viewRoot hr, #modalRoot hr { border-color: var(--line); }
+#viewRoot :is(.table-wrap,.data-table,.calendar-grid,.weekly-grid) { border-color: var(--line); }
+#viewRoot :is(.form-control,select,textarea,input:not([type=checkbox]):not([type=radio])) { color-scheme: inherit; }
+
+:root[data-theme="dark"] #viewRoot [style*="background:#fbfcfd"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fbfcfd"],
+:root[data-theme="dark"] #viewRoot [style*="background:#fbfcfe"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fbfcfe"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f6f8fc"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f6f8fc"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f7f9fc"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f7f9fc"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f4f7ff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f4f7ff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f0f5ff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f0f5ff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#fbfcff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fbfcff"],
+:root[data-theme="dark"] #modalRoot [style*="background:#fff"],
+:root[data-theme="dark"] #modalRoot [style*="background: #fff"],
+:root[data-theme="dark"] #modalRoot [style*="background:#f8fafc"],
+:root[data-theme="dark"] #modalRoot [style*="background: #f8fafc"] { background: var(--surface-2) !important; }
+
+:root[data-theme="dark"] #viewRoot [style*="color:#667389"],
+:root[data-theme="dark"] #viewRoot [style*="color: #667389"],
+:root[data-theme="dark"] #viewRoot [style*="color:#65748b"],
+:root[data-theme="dark"] #viewRoot [style*="color: #65748b"],
+:root[data-theme="dark"] #viewRoot [style*="color:#526176"],
+:root[data-theme="dark"] #viewRoot [style*="color: #526176"],
+:root[data-theme="dark"] #viewRoot [style*="color:#4d5b70"],
+:root[data-theme="dark"] #viewRoot [style*="color: #4d5b70"],
+:root[data-theme="dark"] #viewRoot [style*="color:#738096"],
+:root[data-theme="dark"] #viewRoot [style*="color: #738096"],
+:root[data-theme="dark"] #viewRoot [style*="color:#8793a5"],
+:root[data-theme="dark"] #viewRoot [style*="color: #8793a5"],
+:root[data-theme="dark"] #viewRoot [style*="color:#98a4b5"],
+:root[data-theme="dark"] #viewRoot [style*="color: #98a4b5"],
+:root[data-theme="dark"] #modalRoot [style*="color:#667389"],
+:root[data-theme="dark"] #modalRoot [style*="color: #667389"] { color: var(--text-2) !important; }
+
+:root[data-theme="dark"] #viewRoot :is(.empty-state,.empty-state p,.empty-state h3,.muted,.text-muted),
+:root[data-theme="dark"] #modalRoot :is(.muted,.text-muted) { color: var(--muted); }
+:root[data-theme="dark"] #viewRoot :is(.selected,.active,.is-active) { border-color: var(--primary); }
+:root[data-theme="dark"] #viewRoot :is(.data-table th,.calendar-weekday,.week-column-head) { background: var(--surface-2); color: var(--text-2); }
+:root[data-theme="dark"] #viewRoot :is(.data-table td,.calendar-cell,.week-column) { border-color: var(--line); }
+:root[data-theme="dark"] #viewRoot :is(.schedule-card,.day-agenda-item,.history-item,.setting-row) { background: var(--surface); }
+:root[data-theme="dark"] #modalRoot .modal-footer { background: var(--surface); }
+:root[data-theme="dark"] input[type="date"],
+:root[data-theme="dark"] input[type="time"],
+:root[data-theme="dark"] input[type="datetime-local"] { color-scheme: dark; }
+:root[data-theme="light"] input[type="date"],
+:root[data-theme="light"] input[type="time"],
+:root[data-theme="light"] input[type="datetime-local"] { color-scheme: light; }
+
+/* v1.4.0 — final light/dark consistency pass. Keep at the end of this file. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-2: #f7f9fc;
+  --surface-3: #edf1f6;
+  --surface-raised: #ffffff;
+  --text: #172033;
+  --text-2: #475569;
+  --muted: #8290a5;
+  --line: #e4e9f1;
+  --line-strong: #d3dce8;
+  --control-bg: #ffffff;
+  --control-border: #d3dce8;
+  --table-row-hover: #f3f6fb;
+  --shadow: 0 8px 28px rgba(31,45,75,.06);
+  --shadow-raised: 0 18px 52px rgba(31,45,75,.14);
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --surface: #151f2e;
+  --surface-2: #1c293b;
+  --surface-3: #26364b;
+  --surface-raised: #1a2637;
+  --text: #edf3fb;
+  --text-2: #c5d0df;
+  --muted: #91a2b8;
+  --line: #2c3b50;
+  --line-strong: #40536c;
+  --primary: #91b8ff;
+  --primary-dark: #b5d0ff;
+  --primary-soft: #203653;
+  --success: #77dfb5;
+  --success-bg: #173a30;
+  --warning: #f4c779;
+  --warning-bg: #3d3222;
+  --danger: #ffa0a0;
+  --danger-bg: #432929;
+  --info: #a6c8ff;
+  --topbar-bg: rgba(21,31,46,.96);
+  --mobile-nav-bg: rgba(21,31,46,.98);
+  --overlay: rgba(1,7,16,.78);
+  --soft-blue: #203653;
+  --soft-green: #173a30;
+  --soft-amber: #3d3222;
+  --soft-purple: #302a49;
+  --soft-gray: #27364a;
+  --control-bg: #111b2a;
+  --control-border: #40536c;
+  --table-row-hover: #202e42;
+  --focus-ring: rgba(145,184,255,.24);
+  --shadow: 0 8px 28px rgba(0,0,0,.24);
+  --shadow-raised: 0 22px 60px rgba(0,0,0,.46);
+}
+
+html, body, .app-shell, .sidebar, .main-column, .main-content, #viewRoot,
+#modalRoot, #toastRegion { background-color: var(--bg); color: var(--text); }
+.sidebar { background: var(--surface) !important; border-color: var(--line) !important; }
+.topbar { background: var(--topbar-bg) !important; border-color: var(--line) !important; }
+.mobile-nav { background: var(--mobile-nav-bg) !important; border-color: var(--line) !important; }
+
+/* All content containers, including cards that were not marked with .card. */
+#viewRoot :is(.card,.card-pad,.kpi-card,.next-class-card,.schedule-card,.week-column,
+  .week-event,.calendar-cell,.day-agenda-item,.history-item,.table-wrap,
+  .settings-section,.settings-card,.filter-panel,.filter-card,.schedule-list,
+  .schedule-row,.schedule-item,.event-card,.calendar-panel,.agenda-panel,
+  .import-panel,.import-step,.validation-panel,.backup-panel,.storage-panel,
+  .validation-stat,.setting-row,.list-item,.drop-file-meta,.time-block,
+  .week-summary,.week-table,.week-event-wrap) {
+  color: var(--text);
+  border-color: var(--line);
+}
+#viewRoot :is(.card,.card-pad,.kpi-card,.next-class-card,.schedule-card,.week-column,
+  .week-event,.calendar-cell,.day-agenda-item,.history-item,.table-wrap,
+  .settings-section,.settings-card,.filter-panel,.filter-card,.schedule-list,
+  .schedule-row,.schedule-item,.event-card,.calendar-panel,.agenda-panel,
+  .import-panel,.import-step,.validation-panel,.backup-panel,.storage-panel,
+  .validation-stat,.setting-row,.list-item,.drop-file-meta,.week-summary,
+  .week-table) { background-color: var(--surface) !important; }
+#viewRoot :is(.week-column-head,.week-day,.calendar-weekday,.calendar-cell.muted,
+  .schedule-date-box,.time-line,.progress,.privacy-note,.connection-pill,
+  .dropzone,.search-box,.calendar-toolbar,.next-time-band,.week-exception-button,
+  .validation-stat,.week-summary .week-day) {
+  background-color: var(--surface-2) !important;
+  color: var(--text-2);
+}
+#viewRoot :is(.section-title,.page-title,.page-heading h1,.card h2,.card h3,
+  .setting-row strong,.list-item-main strong,.schedule-info strong,
+  .schedule-card-info strong,.week-column-head strong,.calendar-month,
+  .calendar-date,.day-agenda-detail strong,.validation-stat strong) { color: var(--text) !important; }
+#viewRoot :is(.page-subtitle,.section-description,.card-header p,.small-text,
+  .form-hint,.form-field label,.setting-row p,.list-item-main span,
+  .schedule-info span,.schedule-card-info p,.schedule-card-side span,
+  .day-agenda-time,.day-agenda-detail p,.week-event span,.calendar-more,
+  .empty-state p,.kpi-caption,.kpi-label,.countdown-note,.time-block span) {
+  color: var(--text-2) !important;
+}
+#viewRoot hr, #modalRoot hr, #viewRoot :is(.setting-row,.list-item,.schedule-row,.day-agenda-row) {
+  border-color: var(--line) !important;
+}
+
+/* Inputs must have a readable surface, regardless of their legacy component class. */
+#viewRoot :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea,.form-control),
+#modalRoot :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea,.form-control) {
+  background: var(--control-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--control-border) !important;
+  color-scheme: inherit;
+}
+#viewRoot :is(input,textarea,select)::placeholder,
+#modalRoot :is(input,textarea,select)::placeholder { color: var(--muted) !important; opacity: 1; }
+#viewRoot :is(input,select,textarea,button):disabled,
+#modalRoot :is(input,select,textarea,button):disabled { opacity: .58; }
+#viewRoot :is(input,select,textarea,.form-control):focus-visible,
+#modalRoot :is(input,select,textarea,.form-control):focus-visible {
+  outline: none;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px var(--focus-ring) !important;
+}
+#viewRoot select option, #modalRoot select option { background: var(--surface); color: var(--text); }
+
+/* Buttons, popovers, date controls and modal/toast portals. */
+#viewRoot :is(.btn-secondary,.btn-ghost,.icon-button,.language-control,
+  .calendar-toolbar button,.week-exception-button),
+#modalRoot :is(.btn-secondary,.btn-ghost,.icon-button) {
+  background-color: var(--surface) !important;
+  color: var(--text-2) !important;
+  border-color: var(--line) !important;
+}
+#viewRoot :is(.btn-secondary,.icon-button,.week-exception-button):hover,
+#modalRoot :is(.btn-secondary,.icon-button):hover { background: var(--surface-2) !important; color: var(--primary) !important; }
+#modalRoot .modal-backdrop { background: var(--overlay) !important; }
+#modalRoot .modal, #modalRoot .modal-header, #modalRoot .modal-body, #modalRoot .modal-footer {
+  background-color: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+}
+#modalRoot .modal-header p, #modalRoot .modal-body p { color: var(--text-2); }
+#toastRegion .toast { background: var(--surface) !important; color: var(--text) !important; border-color: var(--line) !important; box-shadow: var(--shadow-raised); }
+#toastRegion .toast p { color: var(--text-2) !important; }
+
+/* Tables and schedule surfaces. */
+#viewRoot .data-table { color: var(--text); border-color: var(--line); }
+#viewRoot .data-table thead th { background: var(--surface-2) !important; color: var(--muted) !important; border-color: var(--line) !important; }
+#viewRoot .data-table tbody td { background: transparent !important; color: var(--text-2) !important; border-color: var(--line) !important; }
+#viewRoot .data-table tbody td strong { color: var(--text) !important; }
+#viewRoot .data-table tbody tr:hover { background: var(--table-row-hover) !important; }
+#viewRoot .calendar-event { background: var(--soft-blue) !important; color: var(--primary) !important; border-color: var(--primary); }
+#viewRoot .calendar-event.exam { background: var(--soft-amber) !important; color: var(--warning) !important; border-color: var(--warning); }
+#viewRoot .calendar-event.cancelled { background: var(--soft-gray) !important; color: var(--muted) !important; border-color: var(--line-strong); }
+#viewRoot .week-event { background: var(--surface) !important; border-color: var(--line) !important; }
+#viewRoot .week-event.exam { border-left-color: var(--warning) !important; }
+#viewRoot .week-event.cancelled { opacity: .72; }
+#viewRoot .empty-state, #viewRoot .empty-state p { color: var(--text-2); }
+#viewRoot .empty-state h3 { color: var(--text); }
+
+/* Semantic status colors retain meaning but adapt their contrast to the theme. */
+#viewRoot .badge-blue { background: var(--soft-blue) !important; color: var(--primary) !important; }
+#viewRoot .badge-green { background: var(--soft-green) !important; color: var(--success) !important; }
+#viewRoot .badge-amber { background: var(--soft-amber) !important; color: var(--warning) !important; }
+#viewRoot .badge-red { background: var(--danger-bg) !important; color: var(--danger) !important; }
+#viewRoot .badge-gray { background: var(--soft-gray) !important; color: var(--text-2) !important; }
+#viewRoot .alert-info { background: var(--soft-blue) !important; color: var(--info) !important; border-color: var(--line-strong) !important; }
+#viewRoot .alert-warning { background: var(--warning-bg) !important; color: var(--warning) !important; border-color: var(--line-strong) !important; }
+#viewRoot .alert-success { background: var(--success-bg) !important; color: var(--success) !important; border-color: var(--line-strong) !important; }
+#viewRoot .alert-danger { background: var(--danger-bg) !important; color: var(--danger) !important; border-color: var(--line-strong) !important; }
+
+/* Convert common legacy inline light backgrounds/colors without touching semantic accents. */
+:root[data-theme="dark"] #viewRoot [style*="background:#fff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#ffffff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #ffffff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f8fafc"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f8fafc"],
+:root[data-theme="dark"] #viewRoot [style*="background:#fbfcff"],
+:root[data-theme="dark"] #viewRoot [style*="background: #fbfcff"],
+:root[data-theme="dark"] #viewRoot [style*="background:#f1f5fb"],
+:root[data-theme="dark"] #viewRoot [style*="background: #f1f5fb"] { background: var(--surface-2) !important; }
+:root[data-theme="dark"] #viewRoot [style*="color:#667389"],
+:root[data-theme="dark"] #viewRoot [style*="color: #667389"],
+:root[data-theme="dark"] #viewRoot [style*="color:#98a4b5"],
+:root[data-theme="dark"] #viewRoot [style*="color: #98a4b5"] { color: var(--text-2) !important; }
+
+:root[data-theme] { scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); }
+:root[data-theme] ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb) !important; }
+:root[data-theme] ::-webkit-scrollbar-track { background: var(--scrollbar-track) !important; }
+
+
+/* v1.5.0 — component coverage for the complete interface, including dynamic portals. */
+:root[data-theme="light"] {
+  --scrollbar-track: #edf1f6;
+  --scrollbar-thumb: #c5cfdd;
+  --focus-ring: rgba(37,99,235,.18);
+  --option-hover: #f4f7fb;
+  --overlay: rgba(19,29,48,.48);
+}
+:root[data-theme="dark"] {
+  --scrollbar-track: #111b2a;
+  --scrollbar-thumb: #40516a;
+  --focus-ring: rgba(141,181,255,.25);
+  --option-hover: #223149;
+  --overlay: rgba(1,7,16,.78);
+}
+
+/* Apply the active palette to every application surface, not only .card elements. */
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .app-shell,
+:root[data-theme="dark"] .main-column,
+:root[data-theme="dark"] .main-content,
+:root[data-theme="dark"] #viewRoot,
+:root[data-theme="dark"] #modalRoot,
+:root[data-theme="dark"] #toastRegion { background-color: var(--bg); color: var(--text); }
+:root[data-theme="light"] body,
+:root[data-theme="light"] .app-shell,
+:root[data-theme="light"] .main-column,
+:root[data-theme="light"] .main-content,
+:root[data-theme="light"] #viewRoot,
+:root[data-theme="light"] #modalRoot,
+:root[data-theme="light"] #toastRegion { background-color: var(--bg); color: var(--text); }
+
+/* Navigation and application chrome. */
+.sidebar, .topbar, .mobile-nav, .sidebar-overlay { color: var(--text); border-color: var(--line); }
+.primary-nav a { color: var(--text-2); }
+.primary-nav a:hover { color: var(--text); background: var(--surface-2); }
+.primary-nav a.active { color: var(--primary); background: var(--primary-soft); }
+.nav-count { background: var(--primary-soft); color: var(--primary); }
+.brand-copy strong, .profile-copy strong, .breadcrumb strong { color: var(--text); }
+.brand-copy span, .profile-copy span, .nav-label, .app-footer, .breadcrumb-separator { color: var(--muted); }
+
+/* Less common cards and dynamic panels. */
+#viewRoot :is(.content-stack,.settings-section,.settings-card,.filter-panel,.filter-card,
+  .import-panel,.import-step,.validation-panel,.backup-panel,.storage-panel,
+  .agenda-panel,.calendar-panel,.schedule-filter,.schedule-list,.schedule-row,
+  .schedule-item,.event-card,.history-item,.list-item,.setting-row,.table-wrap,
+  .drop-file-meta,.week-summary,.week-table,.time-block,.validation-stat,
+  .daily-verification,.verification-option),
+#modalRoot :is(.modal,.verification-option,.verification-note) {
+  border-color: var(--line);
+}
+#viewRoot :is(.settings-section,.settings-card,.filter-panel,.filter-card,
+  .import-panel,.import-step,.validation-panel,.backup-panel,.storage-panel,
+  .agenda-panel,.calendar-panel,.schedule-filter,.schedule-list,.schedule-row,
+  .schedule-item,.event-card,.history-item,.list-item,.setting-row,.drop-file-meta,
+  .week-summary,.week-table,.time-block,.validation-stat) {
+  background-color: var(--surface);
+  color: var(--text);
+}
+#viewRoot :is(.settings-section h2,.settings-card h2,.filter-panel h2,.filter-card h2,
+  .setting-row strong,.list-item-main strong,.history-item strong,
+  .verification-option-copy strong,.daily-verification-copy strong) { color: var(--text); }
+#viewRoot :is(.settings-section p,.settings-card p,.filter-panel p,.filter-card p,
+  .setting-row p,.list-item-main span,.history-item span,.verification-option-copy small,
+  .daily-verification-copy span,.form-hint,.form-field label,.page-subtitle,
+  .section-description,.small-text,.muted,.text-muted) { color: var(--text-2); }
+
+/* Radio/checkbox option cards and special verification overlays. */
+#modalRoot .modal-backdrop, .modal-backdrop { background: var(--overlay); }
+#modalRoot .modal, #modalRoot .modal-header, #modalRoot .modal-body,
+#modalRoot .modal-footer, #modalRoot .verification-option { background-color: var(--surface); color: var(--text); border-color: var(--line); }
+#modalRoot .modal-header, #modalRoot .modal-footer { border-color: var(--line); }
+#modalRoot .modal :is(h1,h2,h3,strong,legend) { color: var(--text); }
+#modalRoot .modal :is(p,small,label,.muted,.form-hint) { color: var(--text-2); }
+#modalRoot .verification-option { background: var(--surface) !important; }
+#modalRoot .verification-option:hover { background: var(--option-hover) !important; }
+#modalRoot .verification-option:has(input:checked) { background: var(--primary-soft) !important; border-color: var(--primary) !important; }
+#modalRoot .verification-symbol { background: var(--surface-2); color: var(--primary); }
+#modalRoot .verification-radio { border-color: var(--muted); }
+#modalRoot .verification-option-copy strong { color: var(--text); }
+#modalRoot .verification-option-copy small { color: var(--text-2); }
+#modalRoot .verification-note { background: var(--soft-blue); color: var(--info); border-color: var(--line-strong); }
+
+/* Normalize all controls, including date/time widgets and select menus. */
+#viewRoot :is(input:not([type=checkbox]):not([type=radio]),select,textarea,button:not(.btn-primary):not(.btn-danger)),
+#modalRoot :is(input:not([type=checkbox]):not([type=radio]),select,textarea,button:not(.btn-primary):not(.btn-danger)) {
+  color-scheme: inherit;
+}
+#viewRoot :is(input:not([type=checkbox]):not([type=radio]),select,textarea,.form-control),
+#modalRoot :is(input:not([type=checkbox]):not([type=radio]),select,textarea,.form-control) {
+  background-color: var(--control-bg, var(--surface)) !important;
+  color: var(--text) !important;
+  border-color: var(--control-border, var(--line-strong)) !important;
+}
+#viewRoot select option, #modalRoot select option { background-color: var(--surface); color: var(--text); }
+#viewRoot input::placeholder, #viewRoot textarea::placeholder,
+#modalRoot input::placeholder, #modalRoot textarea::placeholder { color: var(--muted) !important; }
+#viewRoot :is(input,select,textarea):focus-visible,
+#modalRoot :is(input,select,textarea):focus-visible { outline: 0; border-color: var(--primary) !important; box-shadow: 0 0 0 3px var(--focus-ring) !important; }
+
+/* Tables, lists, calendar and week planner. */
+#viewRoot .data-table { background: var(--surface); color: var(--text); }
+#viewRoot .data-table thead th { background: var(--surface-2) !important; color: var(--muted) !important; border-color: var(--line) !important; }
+#viewRoot .data-table tbody td { color: var(--text-2) !important; border-color: var(--line) !important; }
+#viewRoot .data-table tbody tr:hover { background: var(--table-row-hover) !important; }
+#viewRoot :is(.calendar-cell,.week-column,.week-event,.day-agenda-item,.history-item,.list-item) { color: var(--text); border-color: var(--line); }
+#viewRoot :is(.calendar-cell,.week-column,.day-agenda-item,.history-item,.list-item) { background-color: var(--surface); }
+#viewRoot :is(.calendar-weekday,.week-column-head,.week-day,.schedule-date-box,.calendar-toolbar,.time-line) { background-color: var(--surface-2); color: var(--text-2); }
+#viewRoot :is(.calendar-month,.calendar-date,.day-agenda-detail strong,.schedule-card-info strong) { color: var(--text); }
+#viewRoot :is(.day-agenda-detail p,.day-agenda-time,.calendar-more,.week-event span) { color: var(--text-2); }
+
+/* Semantic alert and badge colors stay readable under either palette. */
+#viewRoot .badge-blue { background: var(--soft-blue) !important; color: var(--primary) !important; }
+#viewRoot .badge-green { background: var(--soft-green) !important; color: var(--success) !important; }
+#viewRoot .badge-amber { background: var(--soft-amber) !important; color: var(--warning) !important; }
+#viewRoot .badge-red { background: var(--danger-bg) !important; color: var(--danger) !important; }
+#viewRoot .badge-gray { background: var(--soft-gray) !important; color: var(--text-2) !important; }
+#viewRoot :is(.alert-info,.alert-warning,.alert-success,.alert-danger) { border-color: var(--line-strong); }
+#viewRoot .alert-info { background: var(--soft-blue); color: var(--info); }
+#viewRoot .alert-warning { background: var(--warning-bg); color: var(--warning); }
+#viewRoot .alert-success { background: var(--success-bg); color: var(--success); }
+#viewRoot .alert-danger { background: var(--danger-bg); color: var(--danger); }
+#toastRegion .toast { background: var(--surface) !important; color: var(--text) !important; border-color: var(--line) !important; }
+#toastRegion .toast :is(p,small) { color: var(--text-2) !important; }
+
+/* Native browser widgets follow the selected palette. */
+:root[data-theme="dark"] { color-scheme: dark; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] input[type=date],
+:root[data-theme="dark"] input[type=time],
+:root[data-theme="dark"] input[type=datetime-local] { color-scheme: dark; }
+:root[data-theme="light"] input[type=date],
+:root[data-theme="light"] input[type=time],
+:root[data-theme="light"] input[type=datetime-local] { color-scheme: light; }

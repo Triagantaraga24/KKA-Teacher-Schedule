@@ -1,11 +1,11 @@
 /* KKA Teacher Schedule service worker — static/PWA only. */
 const CACHE_PREFIX = 'kka-teacher-schedule-';
-const CACHE_VERSION = 'v1.1.0';
+const CACHE_VERSION = 'v1.5.0';
 const APP_CACHE = CACHE_PREFIX + CACHE_VERSION;
 const CORE_ASSETS = [
   './', './index.html', './offline.html', './manifest.webmanifest',
   './css/reset.css', './css/variables.css', './css/typography.css', './css/layout.css',
-  './css/components.css', './css/dashboard.css', './css/calendar.css', './css/schedule.css', './css/responsive.css', './css/print.css',
+  './css/components.css', './css/dashboard.css', './css/calendar.css', './css/schedule.css', './css/responsive.css', './css/print.css', './css/theme-i18n.css',
   './js/app.js', './js/core/i18n.js', './js/modules/daily-verification.js', './js/core/config.js', './js/core/state.js', './js/core/event-bus.js', './js/core/router.js',
   './js/components/views.js', './js/components/event-form.js',
   './js/modules/dashboard.js', './js/modules/schedule.js', './js/modules/weekly.js', './js/modules/calendar.js',

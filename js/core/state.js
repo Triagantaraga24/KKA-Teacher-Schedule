@@ -5,7 +5,7 @@ export const state = {
   scheduleFilters: { search: '', className: '', type: '', status: '' },
   reminderSettings: { enabled: true, intervals: [60, 15, 5], customMinutes: 10 },
   teacher: { name: 'Raga Triagantara, S.Kom.', id: '211032' },
-  theme: 'light'
+  theme: 'system'
 };
 
 export function setState(patch) { Object.assign(state, patch); }

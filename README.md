@@ -307,3 +307,12 @@ The banner appears on Monday, Wednesday, and Friday based on Asia/Jakarta date. 
 
 ## Theme and language
 First launch follows `prefers-color-scheme` (system light/dark). The theme button switches between explicit light and dark modes. The ID/EN selector stores the language locally. Sidebar collapse is a desktop preference and is also stored locally.
+
+
+## v1.5.0 UI and translation update
+
+- Light/dark mode now uses a consolidated token layer across navigation, all card/panel families, verification dialogs, dropdown/select controls, form fields, tables, calendar/week views, alerts, badges, and toast portals.
+- System theme is resolved before first paint and the browser theme-color metadata follows it. Native date/time controls use the active color scheme.
+- The Indonesian/English dictionary covers additional navigation, validation, import/export, storage, notification, theme, backup, and dynamic status messages.
+- Added reciprocal translation tests for common labels and messages, including weekday names and dynamic counts.
+- Personal names, class identities, and user notes remain unmodified.
