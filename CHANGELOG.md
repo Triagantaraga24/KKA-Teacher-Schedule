@@ -52,3 +52,11 @@ v1.4.0 — Theme consistency & complete bilingual UI
 - Reduced Service Worker install precache to the app shell; route modules are cached on first use.
 - Preserved existing features, appearance modes, translation, JP 1 verification, local data, and PWA behavior.
 - v1.7.0 follow-up: lazily import event-form code only after an edit/create action, and precompile bilingual phrase/safe-word patterns to reduce translation work per text node.
+
+## v1.8.0 — Runtime performance refactor
+- Removed duplicate initial dashboard rendering.
+- Dashboard no longer loads audit history during startup.
+- Added IndexedDB history timestamp index and bounded cursor-based history reads.
+- Reused Jakarta date/time formatter.
+- Reduced translation traversal allocations.
+- Bumped Service Worker cache version to v1.8.0.

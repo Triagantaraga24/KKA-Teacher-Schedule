@@ -1433,8 +1433,8 @@ function translateSubtree(root,language){
     if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
     return NodeFilter.FILTER_ACCEPT;
   }});
-  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
-  nodes.forEach(node=>translateTextNode(node,language));
+  // Translate while walking instead of allocating a temporary array for every subtree.
+  while(walker.nextNode()) translateTextNode(walker.currentNode,language);
   if(root.querySelectorAll) root.querySelectorAll('[placeholder],[title],[aria-label],[aria-description],[aria-valuetext],[alt],[data-tooltip],input[type=button],input[type=submit],input[type=reset]').forEach(el=>translateElementAttributes(el,language));
 }
 export function applyTranslations(root=document){translateSubtree(root,getLanguage());}

@@ -33,12 +33,10 @@ let reminderEngine = null;
 let reminderSettingsGetter = null;
 
 async function refreshData() {
-  const [schedules, history] = await Promise.all([
-    database.getAllSchedules(),
-    database.getHistory()
-  ]);
+  // The dashboard needs schedules, not the complete audit log. History is
+  // queried only when its page is opened.
+  const schedules = await database.getAllSchedules();
   state.schedules = schedules;
-  state.history = history;
   setScheduleCache(schedules);
 }
 
@@ -275,10 +273,10 @@ async function init() {
   setupShellControls();
   initNavigation(render);
 
-  // Paint the initial route while IndexedDB loads in parallel.
-  const initialData = refreshData();
-  await render();
-  await initialData;
+  // Show a lightweight shell placeholder, hydrate once, then render the route
+  // exactly once. Avoid building and translating the full dashboard twice.
+  root.innerHTML = '<section class="card card-pad app-loading" aria-live="polite"><div class="loading-indicator"></div><p>Menyiapkan jadwal Anda…</p></section>';
+  await refreshData();
   await render();
 
   // Reminder code is not part of the critical first-render path.

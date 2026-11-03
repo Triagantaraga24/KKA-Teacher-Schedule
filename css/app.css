@@ -1581,3 +1581,9 @@ button, input, select, textarea { font-size: var(--ui-control); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* Lightweight first-paint state */
+.app-loading{min-height:180px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--text-secondary)}
+.loading-indicator{width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:kka-spin .8s linear infinite}
+@keyframes kka-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.loading-indicator{animation:none;border-top-color:var(--border)}}

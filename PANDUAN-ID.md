@@ -234,3 +234,6 @@ Pembaruan ini memperbesar tipografi, jarak antarelemen, navigasi, kartu dashboar
 
 ### Memperbarui stylesheet
 Website memuat satu bundle `css/app.css` agar permintaan awal lebih sedikit. File CSS modular tetap menjadi sumber edit. Setelah mengubah file dalam folder `css/`, jalankan `node scripts/build-css.mjs` dari folder proyek, lalu commit hasilnya. Node.js hanya diperlukan untuk langkah build lokal ini, bukan ketika website dijalankan.
+
+## Catatan performa v1.8.0
+Versi ini menghindari render halaman awal dua kali. Riwayat aktivitas baru dibaca ketika menu Riwayat dibuka dan dibatasi pada 150 catatan terbaru. Database lama ditingkatkan ke skema IndexedDB v2 tanpa menghapus data yang sudah tersimpan. Setelah deploy, muat ulang aplikasi agar Service Worker v1.8.0 aktif. Untuk pengukuran nyata, jalankan Lighthouse pada URL GitHub Pages setelah deployment.

@@ -1,6 +1,7 @@
 import { APP_CONFIG } from '../core/config.js';
 const TZ = APP_CONFIG.timezone;
-export function jakartaParts(date=new Date()) { const parts=new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(date); const out={};parts.forEach(p=>out[p.type]=p.value);return out; }
+const jakartaPartsFormatter = new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+export function jakartaParts(date=new Date()) { const parts=jakartaPartsFormatter.formatToParts(date); const out={};parts.forEach(p=>out[p.type]=p.value);return out; }
 export function jakartaToday(){const p=jakartaParts();return `${p.year}-${p.month}-${p.day}`;}
 export function jakartaTime(){const p=jakartaParts();return `${p.hour}:${p.minute}`;}
 export function dateFromParts(y,m,d){return `${String(y).padStart(4,'0')}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
