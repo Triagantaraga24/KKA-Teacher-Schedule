@@ -34,3 +34,10 @@ v1.4.0 — Theme consistency & complete bilingual UI
 - Added Indonesian/English language selector and local UI translation dictionary.
 - Added collapsible desktop sidebar with persisted preference.
 - Updated Service Worker cache version.
+
+## v1.6.0 — UI comfort scale across devices
+- Increased overall typography scale and spacing so the application no longer feels undersized.
+- Enlarged desktop navigation, page headings, cards, dashboard KPIs, buttons, form controls, tables, calendar cells, dialogs, and notifications.
+- Increased mobile touch targets, body text, card padding, and bottom navigation height while preserving responsive layouts and avoiding horizontal page overflow.
+- Added `css/ui-scale.css` as the final design layer; theme colors continue to use the existing light/dark design tokens.
+- Updated application version and Service Worker cache to v1.6.0.

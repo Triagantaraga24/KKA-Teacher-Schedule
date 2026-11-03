@@ -221,3 +221,6 @@ git push -u origin main
 - Warna browser/status bar mengikuti tema yang aktif sejak halaman mulai dimuat.
 - Terjemahan ID/EN diperluas untuk label navigasi desktop/mobile, status koneksi, preferensi tampilan, validasi, dan pesan dinamis.
 - Teks nama guru, nama kelas, serta catatan pengguna tidak diterjemahkan otomatis.
+
+## v1.6.0 — Pembesaran skala UI lintas perangkat
+Pembaruan ini memperbesar tipografi, jarak antarelemen, navigasi, kartu dashboard, statistik, tombol, kontrol formulir, tabel, kalender, modal, serta notifikasi agar lebih nyaman dibaca dan disentuh. Penyesuaian berlaku untuk desktop, tablet, dan ponsel. Layout tetap responsif dan lapisan `css/ui-scale.css` kompatibel dengan tema terang maupun gelap.

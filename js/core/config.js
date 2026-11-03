@@ -7,5 +7,5 @@ export const APP_CONFIG = {
   storageVersion: 1,
   weekDays: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
   weekDaysShort: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
-  appVersion: '1.5.0'
+  appVersion: '1.6.0'
 };

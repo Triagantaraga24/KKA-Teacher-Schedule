@@ -316,3 +316,6 @@ First launch follows `prefers-color-scheme` (system light/dark). The theme butto
 - The Indonesian/English dictionary covers additional navigation, validation, import/export, storage, notification, theme, backup, and dynamic status messages.
 - Added reciprocal translation tests for common labels and messages, including weekday names and dynamic counts.
 - Personal names, class identities, and user notes remain unmodified.
+
+## v1.6.0 — UI comfort scale
+The v1.6.0 update improves readability and touch comfort across desktop, tablet, and mobile. It increases typography, spacing, navigation, cards, dashboard statistics, buttons, form controls, tables, calendar cells, modal dialogs, and notifications. The responsive layout remains fluid, and the final `css/ui-scale.css` layer works with both light and dark themes.
