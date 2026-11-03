@@ -1,0 +1,2 @@
+const PREFIX='kka_app_';
+export const storage={get(key,fallback=null){try{const v=localStorage.getItem(PREFIX+key);return v===null?fallback:JSON.parse(v);}catch{return fallback;}},set(key,value){localStorage.setItem(PREFIX+key,JSON.stringify(value));},remove(key){localStorage.removeItem(PREFIX+key);},clear(){Object.keys(localStorage).filter(k=>k.startsWith(PREFIX)).forEach(k=>localStorage.removeItem(k));},getBytes(){return Object.keys(localStorage).filter(k=>k.startsWith(PREFIX)).reduce((n,k)=>n+(localStorage.getItem(k)||'').length*2,0);}};

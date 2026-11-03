@@ -1,0 +1,6 @@
+import { database } from '../database/indexed-db.js';
+import { storage } from '../database/storage.js';
+import { downloadBlob, uid } from '../utils/helpers.js';
+export async function exportBackup(){const data=await database.exportAll();data.preferences={teacher:storage.get('teacher'),reminders:storage.get('reminders'),theme:storage.get('theme')};downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),`kka-schedule-backup-${new Date().toISOString().slice(0,10)}.json`);}
+export async function importBackup(file){const text=await file.text();let data;try{data=JSON.parse(text)}catch{throw new Error('File JSON tidak valid.');}if(!data||!Array.isArray(data.schedules))throw new Error('Format backup tidak dikenali.');for(const item of data.schedules){if(!item.id) item.id=uid('restore');await database.saveSchedule(item);}for(const item of (data.history||[])){if(!item.id)item.id=uid('hist');await database.saveHistory(item);}if(data.preferences?.teacher)storage.set('teacher',data.preferences.teacher);if(data.preferences?.reminders)storage.set('reminders',data.preferences.reminders);return data.schedules.length;}
+export async function clearApplicationData(){await database.clearAll();storage.clear();}

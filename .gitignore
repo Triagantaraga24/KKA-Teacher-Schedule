@@ -1,0 +1,15 @@
+# Personal/source data — do not publish
+*.xlsx
+*.xls
+*.ics
+*.backup.json
+backups/
+private-data/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# App-generated local JSON exports
+kka-schedule-backup-*.json

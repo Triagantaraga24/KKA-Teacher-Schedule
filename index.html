@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="Personal teaching schedule and smart reminders for KKA teachers.">
+  <title>KKA Teacher Schedule</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/variables.css">
+  <link rel="stylesheet" href="./css/typography.css">
+  <link rel="stylesheet" href="./css/layout.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/dashboard.css">
+  <link rel="stylesheet" href="./css/calendar.css">
+  <link rel="stylesheet" href="./css/schedule.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <link rel="stylesheet" href="./css/print.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
+      <div class="brand">
+        <div class="brand-mark">K</div>
+        <div class="brand-copy"><strong>KKA Schedule</strong><span>Teacher workspace</span></div>
+        <button class="icon-button sidebar-close" id="sidebarClose" aria-label="Tutup navigasi"></button>
+      </div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="primary-nav" id="primaryNav">
+        <a href="#dashboard" data-route="dashboard"><span class="nav-icon" data-icon="dashboard"></span><span>Dashboard</span></a>
+        <a href="#schedule" data-route="schedule"><span class="nav-icon" data-icon="calendar-days"></span><span>My Schedule</span></a>
+        <a href="#weekly" data-route="weekly"><span class="nav-icon" data-icon="calendar-range"></span><span>Weekly Timetable</span></a>
+        <a href="#calendar" data-route="calendar"><span class="nav-icon" data-icon="calendar"></span><span>Calendar</span></a>
+        <a href="#reminders" data-route="reminders"><span class="nav-icon" data-icon="bell"></span><span>Reminders</span><span class="nav-count" id="reminderNavCount" hidden>0</span></a>
+      </nav>
+      <div class="nav-label nav-label-spaced">MANAGE</div>
+      <nav class="primary-nav">
+        <a href="#import" data-route="import"><span class="nav-icon" data-icon="file-up"></span><span>Import Excel</span></a>
+        <a href="#history" data-route="history"><span class="nav-icon" data-icon="history"></span><span>Schedule History</span></a>
+        <a href="#settings" data-route="settings"><span class="nav-icon" data-icon="settings"></span><span>Settings</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="privacy-note"><span data-icon="shield-check"></span><div><strong>Your data stays local</strong><p>Schedule data is stored on this device.</p></div></div>
+        <div class="sidebar-profile"><div class="avatar">RT</div><div class="profile-copy"><strong id="sidebarTeacher">Raga Triagantara</strong><span>KKA Teacher</span></div><span class="profile-dot"></span></div>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="main-column">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-button menu-toggle" id="menuToggle" aria-label="Buka navigasi" data-icon="menu"></button>
+          <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-separator">/</span><strong id="pageTitle">Dashboard</strong></div>
+        </div>
+        <div class="topbar-actions">
+          <div class="connection-pill" id="connectionStatus"><span class="status-dot"></span><span>Online</span></div>
+          <button class="icon-button" id="quickAddButton" aria-label="Tambah jadwal" title="Tambah jadwal" data-icon="plus"></button>
+          <button class="icon-button notification-top" id="notificationButton" aria-label="Pengaturan notifikasi" title="Pengaturan notifikasi" data-icon="bell"><i id="notificationDot"></i></button>
+          <div class="topbar-avatar">RT</div>
+        </div>
+      </header>
+      <main class="main-content" id="viewRoot" tabindex="-1"></main>
+      <footer class="app-footer"><span>© <span id="yearNow"></span> KKA Teacher Schedule</span><span>Local-first · Offline ready</span></footer>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Navigasi mobile">
+    <a href="#dashboard" data-route="dashboard"><span data-icon="dashboard"></span><small>Home</small></a>
+    <a href="#schedule" data-route="schedule"><span data-icon="calendar-days"></span><small>Schedule</small></a>
+    <a href="#calendar" data-route="calendar"><span data-icon="calendar"></span><small>Calendar</small></a>
+    <a href="#reminders" data-route="reminders"><span data-icon="bell"></span><small>Reminders</small></a>
+    <a href="#settings" data-route="settings"><span data-icon="settings"></span><small>Settings</small></a>
+  </nav>
+  <div id="modalRoot"></div>
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
